@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Telemedicine.Application.Dtos;
 using Telemedicine.Application.Services.Patientservices;
-using Telemedicine.Domain.Patients;
 using Telemedicine.Domain.UnitofWork;
 
 namespace Telemedicine.Application.Services.PatientServiecs
@@ -16,13 +15,9 @@ namespace Telemedicine.Application.Services.PatientServiecs
             this.unitofWork = unitofWork;
             this.mapper = mapper;
         }
-        public async Task AddPatient(PatientDto patientDto)
+        public Task AddPatient(PatientDto patientDto)
         {
-            var patietEntity = mapper.Map<Patient>(patientDto);
-            await unitofWork.PatientRepository.CreatAsync(patietEntity);
-
-            await unitofWork.SaveChangeAsync();
-            unitofWork.Dispose();
+            return null;
         }
     }
 }

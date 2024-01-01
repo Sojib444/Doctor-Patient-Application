@@ -5,7 +5,7 @@ using Telemedicine.EntityFramework.Core;
 
 namespace Telemedicine.Application.Repository
 {
-    public class DoctorRepository : Repository<Doctor>, IDoctorRepository
+    public class DoctorRepository : Repository<User>, IDoctorRepository
     {
         public DoctorRepository(IApplicationDbContex applicationDbContex) : base((DbContext)applicationDbContex)
         {

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Telemedicine.Application.Dtos;
-using Telemedicine.Application.Services.DoctorServices;
 using Telemedicine.Domain.Doctors;
 using Telemedicine.Domain.UnitofWork;
 
@@ -18,7 +17,8 @@ namespace Telemedicine.Application.Services.DoctorServices
         }
         public async Task AddDoctor(DoctorDto doctor)
         {
-            var doctorEntity =  mapper.Map<Doctor>(doctor);
+            var doctorEntity = mapper.Map<User>(doctor);
+            doctorEntity.PasswordHash = doctor.Password;
             await unitofWork.DoctorRepository.CreatAsync(doctorEntity);
 
             await unitofWork.SaveChangeAsync();

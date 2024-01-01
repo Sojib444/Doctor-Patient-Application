@@ -10,13 +10,9 @@ namespace Telemedicine.Application.UnitofWork
         public IDoctorRepository DoctorRepository { get; set; }
 
         public ApplicationUnitofWork(IDoctorRepository doctorRepository,
-            IPatientRepository patientRepository,
             IApplicationDbContex applicationDbContex) : base((DbContext)applicationDbContex)
         {
             this.DoctorRepository = doctorRepository;
-            PatientRepository = patientRepository;
         }
-
-        public IPatientRepository PatientRepository { get; set; }
     }
 }
