@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Telemedicine_Presentton</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Telemedicine_Presentton.styles.css" asp-append-version="true" />
+     @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <div class="row header-top">
+            <div class="col-lg-7 col-md-12 left-item">
+                <ul>
+                    <li><i class="fas fa-envelope-square"></i> sales@smarteyeapps.com</li>
+                    <li><i class="fas fa-phone-square"></i> +123 987 887 765</li>
+                </ul>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block right-item">
+                <ul>
+                    <li><a><i class="fab fa-github"></i></a></li>
+                    <li><a><i class="fab fa-google-plus-g"></i></a></li>
+                    <li> <a><i class="fab fa-pinterest-p"></i></a></li>
+                    <li><a><i class="fab fa-twitter"></i></a></li>
+                    <li> <a><i class="fab fa-facebook-f"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class=" ">
+
+            <div class="row header-nav">
+                <div class="col-md-3 no-padding col-sm-12 nav-img">
+                    <img class="logo" src="~/image/cover.png" alt="">
+                    <a data-toggle="collapse" data-target="#menu" href="#menu"><i class="fas d-block d-md-none small-menu fa-bars"></i></a>
+                </div>
+                <div id="menu" class="col-md-9 d-none d-md-block nav-item">
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Registration">Register</a></li>
+                        <li><a href="contact_us.html">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - All rights reserved by Md Sojib Hosen - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
