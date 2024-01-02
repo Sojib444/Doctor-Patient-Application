@@ -1,4 +1,3 @@
-using Autofac;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Telemedicine.Application.Repository;
@@ -30,7 +29,6 @@ builder.Services.AddScoped<DbContext>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSignalR();
 
-
 //Dbcontext Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(connectionstring));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -60,5 +58,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapHub<UserHub>("/hubs/countuser");
+app.MapHub<HouseHub>("/hubs/houses");
 
 app.Run();

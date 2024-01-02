@@ -1,6 +1,7 @@
 
 //Establish conncetion
-let userCount = new signalR.HubConnectionBuilder().withUrl("hubs/countuser").build();
+let userCount = new signalR.HubConnectionBuilder().withUrl("/hubs/countuser").build();
+
 
 //Connect the methods that hub invokes 
 userCount.on("UpateCount", (value) => {
