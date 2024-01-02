@@ -229,103 +229,54 @@ namespace Telemedicine.EntityFramework.Core.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Telemedicine.Domain.Doctors.Doctor", b =>
+            modelBuilder.Entity("Telemedicine.Domain.Doctors.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("DesingNation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AccoutType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Doctor")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Doctor");
+                    b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
                         new
                         {
-                            Id = "065ebb40-52ff-4f26-a2c3-7aff9f462aa4",
+                            Id = "5978f30e-1b5c-493a-b1f2-25d0be7bae67",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "521743ef-454b-406c-bb89-1b946c866deb",
+                            ConcurrencyStamp = "72bea670-1dd9-4994-af9b-f696b7f1ee2f",
                             Email = "dr1@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PasswordHash = "12345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b67c733a-5ba6-43e4-87de-0337b7de5bd5",
+                            SecurityStamp = "276fcf2c-0b34-42f6-a042-fa45688481c0",
                             TwoFactorEnabled = false,
-                            DesingNation = "MBBS",
+                            AccoutType = 1,
+                            Doctor = 0,
                             Name = "Dr. Smith"
                         },
                         new
                         {
-                            Id = "c793119c-2d3e-45c6-b308-9e7778d1e35c",
+                            Id = "46adb200-2fdb-4ffc-9e9c-f6c099ec3539",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a3e2875-1064-4182-948d-8d0057ebf390",
+                            ConcurrencyStamp = "e0ec01f2-9076-4273-b06c-505beede3e75",
                             Email = "dr2@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PasswordHash = "12345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eefc1403-bd21-4e55-84fa-0f580f0c8263",
+                            SecurityStamp = "6d044edf-d9d0-4e70-bee6-ba76d1781258",
                             TwoFactorEnabled = false,
-                            DesingNation = "MBBS",
+                            AccoutType = 2,
+                            Doctor = 0,
                             Name = "Dr. Johnson"
-                        });
-                });
-
-            modelBuilder.Entity("Telemedicine.Domain.Patients.Patient", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("AspNetUsers", t =>
-                        {
-                            t.Property("Name")
-                                .HasColumnName("Patient_Name");
-                        });
-
-                    b.HasDiscriminator().HasValue("Patient");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "61b50438-a9f1-41fb-96cd-4f8658146503",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "683a5761-c17e-412b-b7c2-f732af166c2e",
-                            Email = "pr1@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "12345",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e0ca4357-a060-48c3-b7d6-3bb9685388f4",
-                            TwoFactorEnabled = false,
-                            Address = "Pabna",
-                            Name = "Patient A"
-                        },
-                        new
-                        {
-                            Id = "a75d4c88-0011-480f-a4d0-803e62c97f5d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "350cdfb2-6d2c-497a-b80b-29e541c31457",
-                            Email = "pr2@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "12345",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd651a05-241c-47f6-9137-ed38346cdb9c",
-                            TwoFactorEnabled = false,
-                            Address = "Kushtia",
-                            Name = "Patient B"
                         });
                 });
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Telemedicine.Application.Dtos;
-using Telemedicine.Domain.Patients;
+using Telemedicine.Domain.Doctors;
+using Telemedicine.Presentation.Models;
 
 namespace Telemedicine.Presentation.Mapping
 {
@@ -8,8 +9,8 @@ namespace Telemedicine.Presentation.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Patient,PatientDto>().ReverseMap();
-            CreateMap<Patient,PatientDto>().ReverseMap();
+            CreateMap<User, DoctorDto>().ReverseMap();
+            CreateMap<UserRegistration, DoctorDto>().ReverseMap();
         }
     }
 }

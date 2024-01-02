@@ -2,9 +2,10 @@
 
 namespace Telemedicine.Domain.Doctors
 {
-    public class Doctor : IdentityUser
+    public class User : IdentityUser
     {
         public string  Name { get; set; }
-        public string  DesingNation { get; set; }
+        public int Doctor {  get; set; }
+        public int AccoutType { get; set; } // 1 for Doctor // 2 for patient
     }
 }

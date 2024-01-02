@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿//using Microsoft.AspNetCore.Identity;
 
-namespace Telemedicine.Domain.Patients
-{
-    public class Patient : IdentityUser
-    {
-        public string Name { get; set; }
-        public string Address { get; set; }
-    }
-}
+//namespace Telemedicine.Domain.Patients
+//{
+//    public class Patient : IdentityUser
+//    {
+//        public string Name { get; set; }
+//    }
+//}
