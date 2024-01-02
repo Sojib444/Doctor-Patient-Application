@@ -9,6 +9,13 @@ userCount.on("UpateCount", (value) => {
 });
 
 
+//Connect the methods that hub invokes 
+userCount.on("TotalCount", (value) => {
+    let countspan = document.getElementById("totalTabCount");
+    countspan.innerText = value.toString();
+});
+
+
 //Invoke Hub Method to send Notification to hub
 function InvokeHubMethod() {
     userCount.send("NewWindowLoading",);
