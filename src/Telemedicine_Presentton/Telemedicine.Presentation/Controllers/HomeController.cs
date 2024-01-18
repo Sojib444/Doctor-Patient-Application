@@ -12,10 +12,10 @@ namespace Telemedicine.Presentation.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
-        public IDoctorServices _doctorServices { get; set; }
+        public IUserServices _doctorServices { get; set; }
         public ILifetimeScope _scope { get; }
 
-        public HomeController(ILogger<HomeController> logger, IDoctorServices doctorServices, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IUserServices doctorServices, IMapper mapper)
         {
             _logger = logger;
             _doctorServices = doctorServices;

@@ -18,11 +18,11 @@ namespace Telemedicine.Presentation.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILoginUserService _loginUserService;
 
-        public IDoctorServices _doctorServices { get; set; }
+        public IUserServices _doctorServices { get; set; }
         public UserManager<IdentityUser> _userManager { get; }
         public ILifetimeScope _scope { get; }
 
-        public AccountController(IDoctorServices doctorServices,
+        public AccountController(IUserServices doctorServices,
             IMapper mapper,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
