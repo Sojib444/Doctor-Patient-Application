@@ -18,6 +18,14 @@ namespace Telemedicine.Application.Repository
             await set.AddAsync(entity);
         }
 
+        public async Task DeleteAsync(Guid id)
+        {
+            var entity = await set.FindAsync(id);
+
+            if (entity != null)
+                set.Remove(entity);
+        }
+
         public async Task<T> GetAsync(Guid id)
         {
             var entity = await set.FindAsync(id);
