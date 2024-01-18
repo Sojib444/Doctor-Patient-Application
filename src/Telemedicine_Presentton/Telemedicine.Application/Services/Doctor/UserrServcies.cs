@@ -5,17 +5,17 @@ using Telemedicine.Domain.UnitofWork;
 
 namespace Telemedicine.Application.Services.DoctorServices
 {
-    public class DoctorServcies : IDoctorServices
+    public class UserrServcies : IUserServices
     {
         private readonly IApplicationUnitofWork unitofWork;
         private readonly IMapper mapper;
 
-        public DoctorServcies(IApplicationUnitofWork unitofWork, IMapper mapper)
+        public UserrServcies(IApplicationUnitofWork unitofWork, IMapper mapper)
         {
             this.unitofWork = unitofWork;
             this.mapper = mapper;
         }
-        public async Task AddDoctor(DoctorDto doctor)
+        public async Task AddDoctor(UserDto doctor)
         {
             var doctorEntity = mapper.Map<User>(doctor);
             doctorEntity.PasswordHash = doctor.Password;
@@ -25,14 +25,18 @@ namespace Telemedicine.Application.Services.DoctorServices
             unitofWork.Dispose();
         }
 
-        public Task<DoctorDto> GetDcotr(Guid doctorId)
+        public Task<UserDto> GetDcotr(Guid doctorId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<DoctorDto>> GetDoctors()
+        public async Task<List<UserDto>> AllUsers()
         {
-            throw new NotImplementedException();
+            var users = await unitofWork.DoctorRepository.GetListAsync();
+
+            var UsersDto = (List<UserDto>)mapper.Map<ICollection<UserDto>>(users);
+
+            return UsersDto;
         }
     }
 }

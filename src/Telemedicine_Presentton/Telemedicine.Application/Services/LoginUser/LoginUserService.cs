@@ -23,9 +23,19 @@ namespace Telemedicine.Application.Services.LoginUsers
            return await unitofWork.LoginRepository.GetListAsync();
         }
 
-        public async Task<LoginUser> GetAsync(Guid Id)
+        public async Task<LoginUser> GetAsync(string userName)
         {
-            return await unitofWork.LoginRepository.GetAsync(Id);
+            var loginUser = await unitofWork.LoginRepository.GetListAsync();
+
+            foreach (var item in loginUser)
+            {
+                if (item.UserName == userName)
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
 
         public async Task RemoveAsync(string userName)

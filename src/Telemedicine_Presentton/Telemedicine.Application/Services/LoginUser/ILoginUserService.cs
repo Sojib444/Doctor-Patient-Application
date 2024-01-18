@@ -6,7 +6,7 @@ namespace Telemedicine.Application.Services.LoginUsers
     {
         Task AddAsync(LoginUser loginUser);
         Task RemoveAsync(string userName);
-        Task<LoginUser> GetAsync(Guid Id);
+        Task<LoginUser> GetAsync(string userName);
         Task<ICollection<LoginUser>> GetAllAsync();
     }
 }
