@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Telemedicine.Application.Repository;
 using Telemedicine.Application.Services.DoctorServices;
+using Telemedicine.Application.Services.LoginUsers;
 using Telemedicine.Application.SignalR.Hubs;
 using Telemedicine.Application.UnitofWork;
 using Telemedicine.Domain.Repository;
@@ -22,6 +23,8 @@ builder.Services.AddScoped<IApplicationUnitofWork, ApplicationUnitofWork>();
 builder.Services.AddScoped<IUnitofWork, UniOfWork>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorServices, DoctorServcies>();
+builder.Services.AddScoped<ILoginUserService, LoginUserService>();
+builder.Services.AddScoped<ILoginRepository, LogInRepository>();
 builder.Services.AddScoped<DbContext>();
 //builder.Services.AddScoped<UserRegistration>();
 
@@ -59,5 +62,6 @@ app.MapControllerRoute(
 
 app.MapHub<UserHub>("/hubs/countuser");
 app.MapHub<HouseHub>("/hubs/houses");
+app.MapHub<ChatHub>("/hubs/chat");
 
 app.Run();

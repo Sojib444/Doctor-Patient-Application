@@ -2,4 +2,27 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Home Page</h1>
+@section Styles{
+    <link rel="stylesheet" href="./css/Index.css"/>
+}
+
+<div class="front-page">
+    <div class="index-heading">
+       <h1>Get Avaliable Doctors</h1>
+       @if(User.Identity.IsAuthenticated)
+        {
+            <form asp-controller="Doctor" asp-action="Index" method="post">
+            <button class="index-btn">Get</button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Account" asp-action="Registration" method="post">
+            <button class="index-login-btn">Login</button>
+            </form>
+        }
+    </div>
+    <div class="index-photo">
+        <img src="~/img/font-page.jpg" alt="Doctor image" class="front-photo" />
+    </div>
+</div>

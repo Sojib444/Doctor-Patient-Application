@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Telemedicine.Application.Services.DoctorServices;
+using Telemedicine.Application.Services.LoginUsers;
+using Telemedicine.Domain.AddLoginUser;
 using Telemedicine.Domain.Doctors;
 using Telemedicine.Presentation.Models;
 
@@ -14,6 +16,8 @@ namespace Telemedicine.Presentation.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILoginUserService _loginUserService;
+
         public IDoctorServices _doctorServices { get; set; }
         public UserManager<IdentityUser> _userManager { get; }
         public ILifetimeScope _scope { get; }
@@ -21,21 +25,24 @@ namespace Telemedicine.Presentation.Controllers
         public AccountController(IDoctorServices doctorServices,
             IMapper mapper,
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            ILoginUserService loginUserService)
         {
             _doctorServices = doctorServices;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _loginUserService = loginUserService;
         }
         [HttpGet]
         public async Task<IActionResult> Registration()
         {
+           // ViewBag.SecondTimes = ViewBag.Message as string;
+
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(UserRegistration model)
         {
             if (ModelState.IsValid)
@@ -55,11 +62,17 @@ namespace Telemedicine.Presentation.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
+                    LoginUser loginUser = new LoginUser();
+
+                    loginUser.LoginTime = DateTime.Now;
+                    loginUser.UserName = user.UserName;
+
+                    await _loginUserService.AddAsync(loginUser);
+
                     return RedirectToAction("index", "Home");
                 }
 
             }
-
             return View();
         }
 
@@ -73,18 +86,34 @@ namespace Telemedicine.Presentation.Controllers
 
                 if (result.Succeeded)
                 {
+                    LoginUser loginUser = new LoginUser();
+
+                    loginUser.LoginTime = DateTime.Now;
+                    loginUser.UserName = user.Email;
+
+                    await _loginUserService.AddAsync(loginUser);
+
                     return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
             }
-            return View(user);
+
+            //ViewBag.Message = "Incorrect Email or Password";
+
+            return RedirectToAction("Registration", "Account"); 
         }
 
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            var currentLoggedInUser = await _userManager.GetUserAsync(User);
+
+            if (currentLoggedInUser != null)
+            {
+                await _signInManager.SignOutAsync();
+
+                await _loginUserService.RemoveAsync(currentLoggedInUser.Email);
+            }
 
             return RedirectToAction("Registration","Account");
         }

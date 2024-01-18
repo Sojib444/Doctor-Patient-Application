@@ -1,9 +1,7 @@
 
 let houseConnection = new signalR.HubConnectionBuilder().withUrl("/hubs/houses").build();
 
-
 let lbl_houseJoined = document.getElementById("lbl_houseJoined");
-
 
 let btn_un_gryffindor = document.getElementById("btn_un_gryffindor");
 let btn_un_slytherin = document.getElementById("btn_un_slytherin");
@@ -97,6 +95,14 @@ houseConnection.on("subscriptionStatus", (houseList, houseName, isJoind) => {
         }
         toastr.success(`You have Unsubscribed Successfully. ${houseName}`);
     }
+})
+
+houseconnection.on("subcription", (housename) => {
+    toastr.success(`${housename} has a new member.`)
+})
+
+houseConnection.on("UnSubcription", (houseName) => {
+    toastr.success(`${houseName} has lost a member.`)
 })
 
 function Success() {

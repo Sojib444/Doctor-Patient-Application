@@ -5,5 +5,6 @@
         Task CreatAsync(T entity);
         Task<T> GetAsync(Guid id);
         Task<ICollection<T>> GetListAsync();
+        Task DeleteAsync(Guid id);
     }
 }

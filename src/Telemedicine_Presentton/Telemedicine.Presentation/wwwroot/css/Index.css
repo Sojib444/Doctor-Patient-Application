@@ -1,0 +1,45 @@
+﻿
+.front-page {
+    height: 550px;
+    width: auto;
+    margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    //border: 1px solid black;
+    gap:40px;
+}
+
+.front-photo {
+    width: 100%; /* Make the image take 100% width of its container */
+    height: 90%; /* Maintain the aspect ratio of the image */
+    display: block; /* Remove extra spacing at the bottom of the image */
+    margin:20px auto;
+    border-radius:10px;
+}
+
+.index-heading{
+    margin:auto 10px;
+}
+.index-btn {
+    margin-left: 150px;
+    background-color:forestgreen;
+    color:white;
+    font-weight:bold;
+    text-transform:uppercase;
+    border:none;
+    font-size:30px;
+    padding:0px 20px;
+    border-radius:4px;
+}
+
+.index-login-btn {
+    margin-left: 150px;
+    background-color: gold;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    font-size: 30px;
+    padding: 0px 20px;
+    border-radius: 4px;
+}

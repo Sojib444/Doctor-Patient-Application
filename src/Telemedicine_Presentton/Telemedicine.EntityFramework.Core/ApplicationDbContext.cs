@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Telemedicine.Domain.AddLoginUser;
 using Telemedicine.Domain.Doctors;
 
 namespace Telemedicine.EntityFramework.Core
@@ -23,6 +24,6 @@ namespace Telemedicine.EntityFramework.Core
         }
 
         public DbSet<User> Doctors { get; set; }
-
+        public DbSet<LoginUser> LoginUsers { get; set; }
     }
 }

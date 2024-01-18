@@ -18,5 +18,35 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #c7ecee;
+}
+
+main{
+    margin:0;
+    padding:0;
+}
+
+.layout {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    margin:0;
+}
+
+header{
+    margin-top: 0;
+}
+
+nav.navbar.navbar-expand-sm.navbar-toggleable-sm.navbar-light.bg-white.border-bottom.box-shadow.mb-3 {
+    margin-top: -25px;
+    background-color: #95a5a6;
+    padding:0;
+}
+
+.container-fluid {
+    background-color: #95a5a6;
+    padding: 10px;
 }
