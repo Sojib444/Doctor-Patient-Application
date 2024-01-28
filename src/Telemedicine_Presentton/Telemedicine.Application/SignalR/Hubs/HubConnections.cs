@@ -1,4 +1,6 @@
-﻿namespace Telemedicine.Application.SignalR.Hubs
+﻿using System.Security.Claims;
+
+namespace Telemedicine.Application.SignalR.Hubs
 {
     public static class HubConnections
     {
@@ -22,6 +24,11 @@
             }
             else 
                 Users.Add(userId, new List<string>() { connectionId});
+        }
+
+        public static void RemvoeUserConnection(string userId)
+        {
+                Users.Remove(userId);            
         }
 
         public static List<string> OnlineUser()

@@ -17,39 +17,19 @@ namespace Telemedicine.Application.SignalR.Hubs
         {
             var userId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if(!string.IsNullOrEmpty(userId))
+            if (!string.IsNullOrEmpty(userId))
             {
                 var user = _userServices.GetUser(userId);
 
-                if(user.Result.AccountType == 1)
+                if (user.Result.AccountType == 1)
                 {
                     ////Clients.Users(HubConnections.OnlineUser()).SendAsync("ReceivedUserConnected",user.Result.Name,user.Result.Email);
 
                     HubConnections.AddUserConnection(userId, Context.ConnectionId);
-                }                                
+                }
             }
 
             return base.OnConnectedAsync();
         }
-
-        //public override Task OnDisconnectedAsync(Exception exception)
-        //{
-        //    var userId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //    if(HubConnections.HasUserConnection(userId, Context.ConnectionId))
-        //    {
-        //        var userHubConnection = HubConnections.Users[userId];
-        //        userHubConnection.Remove(Context.ConnectionId);
-
-        //        HubConnections.Users.Remove(userId);
-                
-        //        if(userHubConnection.Any())
-        //        {
-        //            HubConnections.Users.Add(userId, userHubConnection);
-        //        }
-        //    }
-
-        //    return base.OnDisconnectedAsync(exception);
-        //}
     }
 }

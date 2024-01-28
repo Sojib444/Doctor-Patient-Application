@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Telemedicine.Application.Services.DoctorServices;
 using Telemedicine.Application.Services.LoginUsers;
+using Telemedicine.Application.SignalR.Hubs;
 using Telemedicine.Domain.AddLoginUser;
 using Telemedicine.Domain.Doctors;
 using Telemedicine.Presentation.Models;
@@ -128,7 +129,9 @@ namespace Telemedicine.Presentation.Controllers
             {
                 await _signInManager.SignOutAsync();
 
-                await _loginUserService.RemoveAsync(currentLoggedInUser.Email);
+                //await _loginUserService.RemoveAsync(currentLoggedInUser.Email);
+
+                HubConnections.RemvoeUserConnection(User.FindFirstValue(ClaimTypes.NameIdentifier));
             }
 
             return RedirectToAction("Registration","Account");
