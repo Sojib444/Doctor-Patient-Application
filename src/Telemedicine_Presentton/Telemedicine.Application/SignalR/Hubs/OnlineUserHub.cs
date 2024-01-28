@@ -23,7 +23,7 @@ namespace Telemedicine.Application.SignalR.Hubs
 
                 if(user.Result.AccountType == 1)
                 {
-                    Clients.Users(HubConnections.OnlineUser()).SendAsync("ReceivedUserConnected",user.Result.Name,user.Result.Email);
+                    ////Clients.Users(HubConnections.OnlineUser()).SendAsync("ReceivedUserConnected",user.Result.Name,user.Result.Email);
 
                     HubConnections.AddUserConnection(userId, Context.ConnectionId);
                 }                                

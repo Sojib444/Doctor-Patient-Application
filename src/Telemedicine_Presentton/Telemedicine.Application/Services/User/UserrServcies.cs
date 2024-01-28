@@ -29,7 +29,7 @@ namespace Telemedicine.Application.Services.DoctorServices
         {
             var users = await unitofWork.DoctorRepository.GetListAsync();
 
-            var user = users.Where(x => x.UserName == userId).FirstOrDefault();
+            var user = users.Where(x => x.Id == userId).FirstOrDefault();
 
             return mapper.Map<UserDto>(user);
         }

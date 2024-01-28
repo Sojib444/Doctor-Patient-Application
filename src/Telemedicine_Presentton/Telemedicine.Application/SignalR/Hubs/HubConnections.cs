@@ -16,7 +16,7 @@
 
         public static void AddUserConnection(string userId, string connectionId)
         {
-            if(!string.IsNullOrEmpty(userId) && !HasUserConnection(userId,connectionId))
+            if(!string.IsNullOrEmpty(userId) && HasUserConnection(userId,connectionId))
             {
                 Users[userId].Add(connectionId);
             }
