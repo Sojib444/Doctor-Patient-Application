@@ -31,6 +31,10 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
 
+                            <li class="nav-item username">
+                                <a class="nav-link text-white bg-dark">@User.FindFirst("Name").Value </a>
+                            </li>
+
                             @* <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="SignalR" asp-action="Index">SignalR</a>
                             </li>

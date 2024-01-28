@@ -6,6 +6,6 @@ namespace Telemedicine.Domain.Doctors
     {
         public string  Name { get; set; }
         public int Doctor {  get; set; }
-        public int AccoutType { get; set; } // 1 for Doctor // 2 for patient
+        public int AccountType { get; set; } // 1 for Doctor // 2 for patient
     }
 }

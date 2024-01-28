@@ -1,0 +1,32 @@
+﻿@model List<UserDto>
+@{
+    ViewData["Title"] = "Doctor List";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="./css/doctorList.css"/>
+}
+
+<h2>Active Doctor List</h2>
+
+<div class="user-grid">
+    @foreach (var user in Model)
+    {
+        <div class="user-card">
+            <div class="card-heading">
+                <div><h3>Dr @user.Name</h3></div>
+                <div class="online"></div>
+            </div>
+            <p>Email: @user.Email</p>
+            <button class="card-btn">Message</button>
+            <button class="card-btn">Call</button>
+        </div>
+    }
+
+    @if(Model == null)
+    {
+        <h3>There are not actice Doctor. Plese Try again later.</h3>  
+    }
+</div>
+
+

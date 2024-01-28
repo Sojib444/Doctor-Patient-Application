@@ -9,8 +9,8 @@ namespace Telemedicine.Presentation.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<User, DoctorDto>().ReverseMap();
-            CreateMap<UserRegistration, DoctorDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<UserRegistration, UserDto>().ReverseMap();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Telemedicine.Domain.Repository
 {
-    public interface IDoctorRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

@@ -21,8 +21,8 @@ var connectionstring = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddScoped<IApplicationDbContex, ApplicationDbContext>();
 builder.Services.AddScoped<IApplicationUnitofWork, ApplicationUnitofWork>();
 builder.Services.AddScoped<IUnitofWork, UniOfWork>();
-builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-builder.Services.AddScoped<IDoctorServices, DoctorServcies>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserServices, UserrServcies>();
 builder.Services.AddScoped<ILoginUserService, LoginUserService>();
 builder.Services.AddScoped<ILoginRepository, LogInRepository>();
 builder.Services.AddScoped<DbContext>();
@@ -62,6 +62,6 @@ app.MapControllerRoute(
 
 app.MapHub<UserHub>("/hubs/countuser");
 app.MapHub<HouseHub>("/hubs/houses");
-app.MapHub<ChatHub>("/hubs/chat");
+app.MapHub<OnlineUserHub>("/hubs/onlineuser");
 
 app.Run();

@@ -4,7 +4,7 @@ namespace Telemedicine.Domain.UnitofWork
 {
     public interface IApplicationUnitofWork : IUnitofWork
     {
-        IDoctorRepository DoctorRepository { get; }
+        IUserRepository DoctorRepository { get; }
         ILoginRepository LoginRepository { get; }
     }
 }

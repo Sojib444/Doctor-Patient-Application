@@ -43,3 +43,8 @@
     padding: 0px 20px;
     border-radius: 4px;
 }
+
+.card-btn {
+    background-color: #194C4F;
+    column-rule-color: #FFFFFF;
+}

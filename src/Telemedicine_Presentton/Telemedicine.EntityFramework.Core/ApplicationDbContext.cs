@@ -18,8 +18,8 @@ namespace Telemedicine.EntityFramework.Core
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().HasData(
-                new User { Name = "Dr. Smith", Email = "dr1@gmail.com", PasswordHash = "12345", AccoutType = 1, },
-                new User { Name = "Dr. Johnson", Email = "dr2@gmail.com", PasswordHash = "12345", AccoutType = 2 }
+                new User { Name = "Dr. Smith", Email = "dr1@gmail.com", PasswordHash = "12345", AccountType = 1, },
+                new User { Name = "Dr. Johnson", Email = "dr2@gmail.com", PasswordHash = "12345", AccountType = 2 }
             );
         }
 

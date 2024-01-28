@@ -11,9 +11,11 @@
        <h1>Get Avaliable Doctors</h1>
        @if(User.Identity.IsAuthenticated)
         {
-            <form asp-controller="Doctor" asp-action="Index" method="post">
+            <form asp-controller="User" asp-action="Index" method="post">
             <button class="index-btn">Get</button>
             </form>
+           <script src="~/js/signalr.js"></script>
+           <script src="~/js/Onlineuser.js"></script>
         }
         else
         {

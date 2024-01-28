@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Telemedicine.Application.Dtos;
 using Telemedicine.Application.Services.DoctorServices;
 using Telemedicine.Application.Services.LoginUsers;
+using Telemedicine.Application.SignalR.Hubs;
 
 namespace Telemedicine.Presentation.Controllers
 {
@@ -27,15 +28,15 @@ namespace Telemedicine.Presentation.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             var allUsers = await userServices.AllUsers();
-            var allLoginUsers = await loginUserService.GetAllAsync();
+            var allLoginUsers = HubConnections.OnlineUser();
 
             List<UserDto> users = new List<UserDto>();
 
             foreach (var user in allLoginUsers)
             {
-                foreach(var item in allUsers)
+                foreach (var item in allUsers)
                 {
-                    if(item.Email == user.UserName)
+                    if (item.Id.ToString() == user && item.AccountType == 1)
                     {
                         users.Add(item);
                         break;

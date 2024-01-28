@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Telemedicine.Application.Services.DoctorServices;
 using Telemedicine.Application.Services.LoginUsers;
 using Telemedicine.Domain.AddLoginUser;
@@ -51,7 +52,7 @@ namespace Telemedicine.Presentation.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    AccoutType = model.AccountType,
+                    AccountType = model.AccountType,
                     Name = model.Name
 
                 };
@@ -60,19 +61,28 @@ namespace Telemedicine.Presentation.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddClaimAsync(user, new Claim("Name", model.Name));
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    LoginUser loginUser = new LoginUser();
+                    var UserLogedIn = await _loginUserService.GetAsync(user.Email);
 
-                    loginUser.LoginTime = DateTime.Now;
-                    loginUser.UserName = user.UserName;
+                    if (UserLogedIn == null)
+                    {
 
-                    await _loginUserService.AddAsync(loginUser);
+                        LoginUser loginUser = new LoginUser();
+
+                        loginUser.LoginTime = DateTime.Now;
+                        loginUser.UserName = user.UserName;
+
+                        await _loginUserService.AddAsync(loginUser);
+                    } 
 
                     return RedirectToAction("index", "Home");
                 }
 
             }
+
             return View();
         }
 
@@ -85,13 +95,19 @@ namespace Telemedicine.Presentation.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user.Email,user.Password,true,false);
 
                 if (result.Succeeded)
-                {
-                    LoginUser loginUser = new LoginUser();
+                {                  
+                    var UserLogedIn = await _loginUserService.GetAsync(user.Email);
 
-                    loginUser.LoginTime = DateTime.Now;
-                    loginUser.UserName = user.Email;
+                    if (UserLogedIn == null)
+                    {
 
-                    await _loginUserService.AddAsync(loginUser);
+                        LoginUser loginUser = new LoginUser();
+
+                        loginUser.LoginTime = DateTime.Now;
+                        loginUser.UserName = user.Email;
+
+                        await _loginUserService.AddAsync(loginUser);
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }
