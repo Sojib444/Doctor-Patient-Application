@@ -8,7 +8,7 @@
         {
             if(Users.ContainsKey(userId))
             {
-                return Users[userId].Any(P => P.Contains(connectionId));
+                return true;
             }
 
             return false;
@@ -20,7 +20,8 @@
             {
                 Users[userId].Add(connectionId);
             }
-            Users.Add(userId, new List<string>() { connectionId});
+            else 
+                Users.Add(userId, new List<string>() { connectionId});
         }
 
         public static List<string> OnlineUser()
