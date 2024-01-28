@@ -25,18 +25,20 @@ namespace Telemedicine.Application.Services.DoctorServices
             unitofWork.Dispose();
         }
 
-        public Task<UserDto> GetDcotr(Guid doctorId)
+        public async Task<UserDto> GetUser(string userId)
         {
-            throw new NotImplementedException();
+            var users = await unitofWork.DoctorRepository.GetListAsync();
+
+            var user = users.Where(x => x.UserName == userId).FirstOrDefault();
+
+            return mapper.Map<UserDto>(user);
         }
 
         public async Task<List<UserDto>> AllUsers()
         {
             var users = await unitofWork.DoctorRepository.GetListAsync();
 
-            var UsersDto = (List<UserDto>)mapper.Map<ICollection<UserDto>>(users);
-
-            return UsersDto;
+            return (List<UserDto>)mapper.Map<ICollection<UserDto>>(users);          
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Telemedicine.Application.Services.DoctorServices
     public interface IUserServices
     {
         Task AddDoctor(UserDto doctor);
-        Task<UserDto> GetDcotr(Guid doctorId);
+        Task<UserDto> GetUser(string userId);
         Task<List<UserDto>> AllUsers();
     }
 }
