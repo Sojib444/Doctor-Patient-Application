@@ -1,41 +1,35 @@
-using Autofac;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Telemedicine.Application.Dtos;
-using Telemedicine.Application.Services.DoctorServices;
-using Telemedicine.Presentation.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using SignalRSample.Data;
+using SignalRSample.Models.ViewModel;
+using System.Security.Claims;
 
-namespace Telemedicine.Presentation.Controllers
+namespace SignalRSample.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IMapper _mapper;
-        public IUserServices _doctorServices { get; set; }
-        public ILifetimeScope _scope { get; }
-
-        public HomeController(ILogger<HomeController> logger, IUserServices doctorServices, IMapper mapper)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger,
+            ApplicationDbContext context)
         {
-            _logger = logger;
-            _doctorServices = doctorServices;
-            _mapper = mapper;
+            _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
+
+        }
+        public IActionResult AdvancedChat()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ChatVM chatVm = new()
+            {
+                Rooms = _context.ChatRoom.ToList(),
+                MaxRoomAllowed = 4,
+                UserId = userId,
+            };
+            return View(chatVm);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

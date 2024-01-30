@@ -17,7 +17,7 @@ namespace Telemedicine.EntityFramework.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -247,6 +247,35 @@ namespace Telemedicine.EntityFramework.Core.Migrations
                     b.ToTable("LoginUsers");
                 });
 
+            modelBuilder.Entity("Telemedicine.Domain.Users.ChatRoom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChatRooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sojib"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Abir"
+                        });
+                });
+
             modelBuilder.Entity("Telemedicine.Domain.Doctors.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -266,15 +295,15 @@ namespace Telemedicine.EntityFramework.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "231dae3b-f3d5-4765-afa8-b2aec706b10a",
+                            Id = "29df54cc-18c6-4087-a63c-32f3dd2a1ab9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af651e1c-69c1-4f0a-bdd6-c84db1bfab24",
+                            ConcurrencyStamp = "bccef56f-3af9-4713-9a8f-a18198910f1e",
                             Email = "dr1@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PasswordHash = "12345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c31310be-120b-4d31-b2fb-61ab93522108",
+                            SecurityStamp = "22f29c06-da6e-4452-922b-d09012dd6182",
                             TwoFactorEnabled = false,
                             AccountType = 1,
                             Doctor = 0,
@@ -282,15 +311,15 @@ namespace Telemedicine.EntityFramework.Core.Migrations
                         },
                         new
                         {
-                            Id = "764be0ce-f160-4b91-89a7-d38dc6aeca53",
+                            Id = "2b192ff5-b755-4563-be5a-4dc6d0405274",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "be7b7eec-8957-478a-886f-037cc9734b81",
+                            ConcurrencyStamp = "59335bfa-39db-45fd-857f-33669c8e68ac",
                             Email = "dr2@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PasswordHash = "12345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "27e1e0e2-7041-4dab-82cd-2b4adf5af1e4",
+                            SecurityStamp = "705b2c09-1909-40a3-b980-c46b4067dfae",
                             TwoFactorEnabled = false,
                             AccountType = 2,
                             Doctor = 0,

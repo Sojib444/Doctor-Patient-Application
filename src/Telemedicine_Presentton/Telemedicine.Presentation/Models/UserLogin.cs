@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Telemedicine.Presentation.Models
+namespace SignalRSample.Models
 {
     public class UserLogin
     {

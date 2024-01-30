@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Telemedicine.Presentation.Models
+namespace SignalRSample.Models
 {
     public class UserRegistration
-    { 
+    {
         [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
         [Required]
@@ -14,6 +14,6 @@ namespace Telemedicine.Presentation.Models
         public string Password { get; set; }
 
         [Required]
-        public int AccountType { get; set; }     
+        public int AccountType { get; set; }
     }
 }

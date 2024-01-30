@@ -6,5 +6,6 @@ namespace Telemedicine.Domain.UnitofWork
     {
         IUserRepository DoctorRepository { get; }
         ILoginRepository LoginRepository { get; }
+        IChatRoomRepository ChatRoomRepository { get; }
     }
 }

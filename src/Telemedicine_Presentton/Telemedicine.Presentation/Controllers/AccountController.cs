@@ -1,45 +1,31 @@
-﻿using Autofac;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SignalRSample.Data;
+using SignalRSample.Hubs;
+using SignalRSample.Models;
 using System.Security.Claims;
-using Telemedicine.Application.Services.DoctorServices;
-using Telemedicine.Application.Services.LoginUsers;
-using Telemedicine.Application.SignalR.Hubs;
-using Telemedicine.Domain.AddLoginUser;
-using Telemedicine.Domain.Doctors;
-using Telemedicine.Presentation.Models;
 
 namespace Telemedicine.Presentation.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IMapper _mapper;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILoginUserService _loginUserService;
 
-        public IUserServices _doctorServices { get; set; }
         public UserManager<IdentityUser> _userManager { get; }
-        public ILifetimeScope _scope { get; }
+        public ApplicationDbContext ApplicationDbContext { get; }
 
-        public AccountController(IUserServices doctorServices,
-            IMapper mapper,
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            ILoginUserService loginUserService)
+        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, ApplicationDbContext applicationDbContext)
         {
-            _doctorServices = doctorServices;
-            _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
-            _loginUserService = loginUserService;
+            ApplicationDbContext = applicationDbContext;
         }
+
         [HttpGet]
         public async Task<IActionResult> Registration()
         {
-           // ViewBag.SecondTimes = ViewBag.Message as string;
+            // ViewBag.SecondTimes = ViewBag.Message as string;
 
             return View();
         }
@@ -66,19 +52,6 @@ namespace Telemedicine.Presentation.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    var UserLogedIn = await _loginUserService.GetAsync(user.Email);
-
-                    if (UserLogedIn == null)
-                    {
-
-                        LoginUser loginUser = new LoginUser();
-
-                        loginUser.LoginTime = DateTime.Now;
-                        loginUser.UserName = user.UserName;
-
-                        await _loginUserService.AddAsync(loginUser);
-                    } 
-
                     return RedirectToAction("index", "Home");
                 }
 
@@ -96,20 +69,7 @@ namespace Telemedicine.Presentation.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user.Email,user.Password,true,false);
 
                 if (result.Succeeded)
-                {                  
-                    var UserLogedIn = await _loginUserService.GetAsync(user.Email);
-
-                    if (UserLogedIn == null)
-                    {
-
-                        LoginUser loginUser = new LoginUser();
-
-                        loginUser.LoginTime = DateTime.Now;
-                        loginUser.UserName = user.Email;
-
-                        await _loginUserService.AddAsync(loginUser);
-                    }
-
+                {
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -118,7 +78,7 @@ namespace Telemedicine.Presentation.Controllers
 
             //ViewBag.Message = "Incorrect Email or Password";
 
-            return RedirectToAction("Registration", "Account"); 
+            return RedirectToAction("Registration", "Account");
         }
 
         public async Task<IActionResult> Logout()
@@ -131,10 +91,10 @@ namespace Telemedicine.Presentation.Controllers
 
                 //await _loginUserService.RemoveAsync(currentLoggedInUser.Email);
 
-                HubConnections.RemvoeUserConnection(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                HubConnections.Users.Remove(User.FindFirstValue(ClaimTypes.NameIdentifier));
             }
 
-            return RedirectToAction("Registration","Account");
+            return RedirectToAction("Registration", "Account");
         }
 
     }

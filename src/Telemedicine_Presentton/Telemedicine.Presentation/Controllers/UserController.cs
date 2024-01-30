@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Telemedicine.Application.Dtos;
-using Telemedicine.Application.Services.DoctorServices;
-using Telemedicine.Application.Services.LoginUsers;
-using Telemedicine.Application.SignalR.Hubs;
+using SignalRSample.Data;
+using SignalRSample.Hubs;
+using SignalRSample.Models;
 
 namespace Telemedicine.Presentation.Controllers
 {
@@ -11,26 +10,22 @@ namespace Telemedicine.Presentation.Controllers
     {
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly UserManager<IdentityUser> userManager;
-        private readonly IUserServices userServices;
-        private readonly ILoginUserService loginUserService;
+        private readonly ApplicationDbContext dbContext;
 
         public UserController(SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager,
-            IUserServices userServices,
-            ILoginUserService loginUserService)
+            UserManager<IdentityUser> userManager,ApplicationDbContext dbContext)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
-            this.userServices = userServices;
-            this.loginUserService = loginUserService;
+            this.dbContext = dbContext;
         }
 
         public async Task<IActionResult> IndexAsync()
         {
-            var allUsers = await userServices.AllUsers();
-            var allLoginUsers = HubConnections.OnlineUser();
+            var allUsers = dbContext.User.ToList() ;
+            var allLoginUsers = HubConnections.OnlineUsers();
 
-            List<UserDto> users = new List<UserDto>();
+            List<User> users = new List<User>();
 
             foreach (var user in allLoginUsers)
             {

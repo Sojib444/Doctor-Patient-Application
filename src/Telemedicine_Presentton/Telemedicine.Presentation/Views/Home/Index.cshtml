@@ -2,25 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-@section Styles{
-    <link rel="stylesheet" href="./css/Index.css"/>
+@section Styles {
+    <link rel="stylesheet" href="./css/Index.css" />
 }
 
 <div class="front-page">
     <div class="index-heading">
-       <h1>Get Avaliable Doctors</h1>
-       @if(User.Identity.IsAuthenticated)
+        <h1>Get Avaliable Doctors</h1>
+        @if (User.Identity.IsAuthenticated)
         {
             <form asp-controller="User" asp-action="Index" method="post">
-            <button class="index-btn">Get</button>
+                <button class="index-btn">Get</button>
             </form>
-           <script src="~/js/signalr.js"></script>
-           <script src="~/js/Onlineuser.js"></script>
+            <script src="~/js/signalr.js"></script>
+            <script src="~/js/Onlineuser.js"></script>
         }
         else
         {
-            <form asp-controller="Account" asp-action="Registration" method="post">
-            <button class="index-login-btn">Login</button>
+            <form asp-controller="Account" asp-action="Registration" method="get">
+                <button class="index-login-btn">Login</button>
             </form>
         }
     </div>

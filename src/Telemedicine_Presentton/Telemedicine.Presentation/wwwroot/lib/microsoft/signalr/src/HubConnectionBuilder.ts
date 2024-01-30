@@ -8,7 +8,6 @@ import { IHttpConnectionOptions } from "./IHttpConnectionOptions";
 import { IHubProtocol } from "./IHubProtocol";
 import { ILogger, LogLevel } from "./ILogger";
 import { IRetryPolicy } from "./IRetryPolicy";
-import { IStatefulReconnectOptions } from "./IStatefulReconnectOptions";
 import { HttpTransportType } from "./ITransport";
 import { JsonHubProtocol } from "./JsonHubProtocol";
 import { NullLogger } from "./Loggers";
@@ -40,9 +39,6 @@ function parseLogLevel(name: string): LogLevel {
 
 /** A builder for configuring {@link @microsoft/signalr.HubConnection} instances. */
 export class HubConnectionBuilder {
-    private _serverTimeoutInMilliseconds?: number;
-    private _keepAliveIntervalInMilliseconds ?: number;
-
     /** @internal */
     public protocol?: IHubProtocol;
     /** @internal */
@@ -55,8 +51,6 @@ export class HubConnectionBuilder {
     /** If defined, this indicates the client should automatically attempt to reconnect if the connection is lost. */
     /** @internal */
     public reconnectPolicy?: IRetryPolicy;
-
-    private _statefulReconnectBufferSize?: number;
 
     /** Configures console logging for the {@link @microsoft/signalr.HubConnection}.
      *
@@ -75,14 +69,14 @@ export class HubConnectionBuilder {
     /** Configures custom logging for the {@link @microsoft/signalr.HubConnection}.
      *
      * @param {string} logLevel A string representing a LogLevel setting a minimum level of messages to log.
-     *    See {@link https://learn.microsoft.com/aspnet/core/signalr/configuration#configure-logging|the documentation for client logging configuration} for more details.
+     *    See {@link https://docs.microsoft.com/aspnet/core/signalr/configuration#configure-logging|the documentation for client logging configuration} for more details.
      */
     public configureLogging(logLevel: string): HubConnectionBuilder;
 
     /** Configures custom logging for the {@link @microsoft/signalr.HubConnection}.
      *
      * @param {LogLevel | string | ILogger} logging A {@link @microsoft/signalr.LogLevel}, a string representing a LogLevel, or an object implementing the {@link @microsoft/signalr.ILogger} interface.
-     *    See {@link https://learn.microsoft.com/aspnet/core/signalr/configuration#configure-logging|the documentation for client logging configuration} for more details.
+     *    See {@link https://docs.microsoft.com/aspnet/core/signalr/configuration#configure-logging|the documentation for client logging configuration} for more details.
      * @returns The {@link @microsoft/signalr.HubConnectionBuilder} instance, for chaining.
      */
     public configureLogging(logging: LogLevel | string | ILogger): HubConnectionBuilder;
@@ -189,45 +183,6 @@ export class HubConnectionBuilder {
         return this;
     }
 
-    /** Configures {@link @microsoft/signalr.HubConnection.serverTimeoutInMilliseconds} for the {@link @microsoft/signalr.HubConnection}.
-     *
-     * @returns The {@link @microsoft/signalr.HubConnectionBuilder} instance, for chaining.
-     */
-    public withServerTimeout(milliseconds: number): HubConnectionBuilder {
-        Arg.isRequired(milliseconds, "milliseconds");
-
-        this._serverTimeoutInMilliseconds = milliseconds;
-
-        return this;
-    }
-
-    /** Configures {@link @microsoft/signalr.HubConnection.keepAliveIntervalInMilliseconds} for the {@link @microsoft/signalr.HubConnection}.
-     *
-     * @returns The {@link @microsoft/signalr.HubConnectionBuilder} instance, for chaining.
-     */
-    public withKeepAliveInterval(milliseconds: number): HubConnectionBuilder {
-        Arg.isRequired(milliseconds, "milliseconds");
-
-        this._keepAliveIntervalInMilliseconds = milliseconds;
-
-        return this;
-    }
-
-    /** Enables and configures options for the Stateful Reconnect feature.
-     *
-     * @returns The {@link @microsoft/signalr.HubConnectionBuilder} instance, for chaining.
-     */
-    public withStatefulReconnect(options?: IStatefulReconnectOptions): HubConnectionBuilder {
-        if (this.httpConnectionOptions === undefined) {
-            this.httpConnectionOptions = {};
-        }
-        this.httpConnectionOptions._useStatefulReconnect = true;
-
-        this._statefulReconnectBufferSize = options?.bufferSize;
-
-        return this;
-    }
-
     /** Creates a {@link @microsoft/signalr.HubConnection} from the configuration options specified in this builder.
      *
      * @returns {HubConnection} The configured {@link @microsoft/signalr.HubConnection}.
@@ -253,10 +208,7 @@ export class HubConnectionBuilder {
             connection,
             this.logger || NullLogger.instance,
             this.protocol || new JsonHubProtocol(),
-            this.reconnectPolicy,
-            this._serverTimeoutInMilliseconds,
-            this._keepAliveIntervalInMilliseconds,
-            this._statefulReconnectBufferSize);
+            this.reconnectPolicy);
     }
 }
 

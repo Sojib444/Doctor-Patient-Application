@@ -31,5 +31,25 @@ namespace Telemedicine.Application.SignalR.Hubs
 
             return base.OnConnectedAsync();
         }
+
+        public async Task SendPrivateMessage(string receiverId, string message, string receiverName)
+        {
+            var senderId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var senderName = _userServices.GetUser(senderId).Result.Name;
+
+            var users = new string[] { senderId, receiverId };
+
+            await Clients.Users(users)
+                .SendAsync("ReceivePrivateMessage", senderId, senderName, Guid.NewGuid(), receiverId, receiverName);
+        }
+
+        public async Task SendOpenPrivateChat(string reciveId)
+        {
+            var userId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userName = _userServices.GetUser(userId).Result.Name;
+
+            await Clients.User(reciveId).SendAsync("SendOpenPrivateChatReceive", userId, userName);
+        }
     }
 }

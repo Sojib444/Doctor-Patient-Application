@@ -4,7 +4,6 @@
 import { AbortError, HttpError, TimeoutError } from "./Errors";
 import { HttpClient, HttpRequest, HttpResponse } from "./HttpClient";
 import { ILogger, LogLevel } from "./ILogger";
-import { isArrayBuffer } from "./Utils";
 
 export class XhrHttpClient extends HttpClient {
     private readonly _logger: ILogger;
@@ -34,17 +33,8 @@ export class XhrHttpClient extends HttpClient {
             xhr.open(request.method!, request.url!, true);
             xhr.withCredentials = request.withCredentials === undefined ? true : request.withCredentials;
             xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            if (request.content === "") {
-                request.content = undefined;
-            }
-            if (request.content) {
-                // Explicitly setting the Content-Type header for React Native on Android platform.
-                if (isArrayBuffer(request.content)) {
-                    xhr.setRequestHeader("Content-Type", "application/octet-stream");
-                } else {
-                    xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-                }
-            }
+            // Explicitly setting the Content-Type header for React Native on Android platform.
+            xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
 
             const headers = request.headers;
             if (headers) {
@@ -91,7 +81,7 @@ export class XhrHttpClient extends HttpClient {
                 reject(new TimeoutError());
             };
 
-            xhr.send(request.content);
+            xhr.send(request.content || "");
         });
     }
 }

@@ -5,12 +5,12 @@ using Telemedicine.Domain.UnitofWork;
 
 namespace Telemedicine.Application.Services.DoctorServices
 {
-    public class UserrServcies : IUserServices
+    public class UserServcies : IUserServices
     {
         private readonly IApplicationUnitofWork unitofWork;
         private readonly IMapper mapper;
 
-        public UserrServcies(IApplicationUnitofWork unitofWork, IMapper mapper)
+        public UserServcies(IApplicationUnitofWork unitofWork, IMapper mapper)
         {
             this.unitofWork = unitofWork;
             this.mapper = mapper;
